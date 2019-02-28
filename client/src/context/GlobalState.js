@@ -1,17 +1,37 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 import TemplateContext from "./templateContext";
 
 class GlobalState extends Component {
   state = {
-    products: [
-      { id: "p1", title: "Gaming Mouse", price: 29.99 },
-      { id: "p2", title: "Harry Potter 3", price: 9.99 },
-      { id: "p3", title: "Used plastic bottle", price: 0.99 },
-      { id: "p4", title: "Half-dried plant", price: 2.99 }
-    ],
+    products: [],
     cart: []
   };
+
+  componentDidMount() {
+    let self = this;
+    axios
+      .get("/api/todos")
+      .then(function(response) {
+        const todos = response.data;
+        console.log(todos);
+        self.setState({ products: todos }, () =>
+          console.log("Customers fetched...", todos)
+        );
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+
+    // fetch("/api/todos")
+    //   .then(res => res.json())
+    //   .then(todos =>
+    //     this.setState({ products: todos }, () =>
+    //       console.log("Customers fetched...", todos)
+    //     )
+    //   );
+  }
 
   addProductToCart = product => {
     console.log("Adding product", product);
@@ -23,6 +43,8 @@ class GlobalState extends Component {
   };
 
   render() {
+    console.log("from global", this.state);
+
     return (
       <TemplateContext.Provider
         value={{
