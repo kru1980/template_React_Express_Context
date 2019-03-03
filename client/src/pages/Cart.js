@@ -1,25 +1,20 @@
-import React, { Component } from "react";
+import React from "react";
 
-import TemplateContext from "../context/templateContext";
+// import TemplateContext from "../context/templateContext";
 import MainNavigation from "../components/MainNavigation";
 
 import "./Cart.css";
 
-class CartPage extends Component {
-  static contextType = TemplateContext;
+const CartPage = props => {
+  // const context = useContext(TemplateContext);
 
-  componentDidMount() {
-    console.log(this.context);
-  }
-
-  render() {
-    return (
-      <React.Fragment>
-        <MainNavigation />
-        <main className="cart" />
-      </React.Fragment>
-    );
-  }
-}
+  return (
+    <React.Fragment>
+      <MainNavigation />
+      <main className="cart">cart page{props.match.params.id}</main>
+      {/* {console.log(props)} */}
+    </React.Fragment>
+  );
+};
 
 export default CartPage;
